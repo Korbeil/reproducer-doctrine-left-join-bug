@@ -1,0 +1,13 @@
+{
+    "name": "korbeil/reproducer-doctrine-left-join-bug",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require": {
+        "doctrine/orm": "^2.6"
+    }
+}
