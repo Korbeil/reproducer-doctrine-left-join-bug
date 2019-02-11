@@ -33,7 +33,7 @@ class Sale
 
     /**
      * @var Collection|Category[]
-     * @ManyToMany(targetEntity="App\Entity\Category")
+     * @ManyToMany(targetEntity="App\Entity\Category", mappedBy="sales")
      */
     private $categories;
 

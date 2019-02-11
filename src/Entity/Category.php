@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Id;
@@ -34,6 +35,12 @@ class Category
      */
     private $visible = false;
 
+    /**
+     * @var Collection|Sale[]
+     * @ManyToMany(targetEntity="App\Entity\Sale", inversedBy="categories")
+     */
+    private $sales;
+
     public function getId(): int
     {
         return $this->id;
@@ -62,5 +69,21 @@ class Category
     public function setVisible(bool $visible): void
     {
         $this->visible = $visible;
+    }
+
+    /**
+     * @return Sale[]|Collection
+     */
+    public function getSales(): Collection
+    {
+        return $this->sales;
+    }
+
+    /**
+     * @param Sale[]|Collection $sales
+     */
+    public function setSales(Collection $sales): void
+    {
+        $this->sales = $sales;
     }
 }
