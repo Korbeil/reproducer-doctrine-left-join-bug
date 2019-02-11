@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Column;
-use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\Common\Collections\Collection;
 
 /**
@@ -31,10 +31,10 @@ class Product
     private $name;
 
     /**
-     * @var Collection|Image[]
-     * @ManyToMany(targetEntity="App\Entity\Image")
+     * @var null|Sale
+     * @ManyToOne(targetEntity="App\Entity\Sale", inversedBy="products")
      */
-    private $images;
+    private $sale;
 
     public function getId(): int
     {
@@ -56,19 +56,13 @@ class Product
         $this->name = $name;
     }
 
-    /**
-     * @return Image[]|Collection
-     */
-    public function getImages(): Collection
+    public function getSale(): ?Sale
     {
-        return $this->images;
+        return $this->sale;
     }
 
-    /**
-     * @param Image[]|Collection $images
-     */
-    public function setImage(Collection $images): void
+    public function setSale(Sale $sale): void
     {
-        $this->images = $images;
+        $this->sale = $sale;
     }
 }

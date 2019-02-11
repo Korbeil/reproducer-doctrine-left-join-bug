@@ -3,20 +3,23 @@
 /** @var \Doctrine\ORM\EntityManager $entityManager */
 require_once __DIR__.'/bootstrap.php';
 
-/** @var \App\Entity\Product $product */
-$product = $entityManager->getRepository(\App\Entity\Product::class)->find(1);
-printf("[Product %d] %s\n", $product->getId(), $product->getName());
+/** @var \App\Entity\Sale $sale */
+$sale = $entityManager->getRepository(\App\Entity\Sale::class)->find(1);
+printf("[Sale %d] %s\n", $sale->getId(), $sale->getName());
 
 $queryBuilder = $entityManager->createQueryBuilder();
 $results = $queryBuilder
-    ->select('p, i')
+    ->select('p, s, c')
     ->from(\App\Entity\Product::class, 'p')
-    ->leftJoin('p.images', 'i', 'WITH', 'i.visible = :true')
-    ->setParameter(':true', true)
+    ->leftJoin('p.sale', 's')
+    ->leftJoin('s.categories', 'c', 'WITH', 'c.visible = :true')
+    ->setParameter('true', true)
     ->getQuery()
     ->getResult();
 
 /** @var \App\Entity\Product $product */
 foreach ($results as $product) {
-    printf("Query [Product %d] %d images\n", $product->getId(), $product->getImages()->count());
+    if ($product->getSale() instanceof \App\Entity\Sale) {
+        printf("Query [Product %d] %d categories\n", $product->getId(), $product->getSale()->getCategories()->count());
+    }
 }

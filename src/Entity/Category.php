@@ -10,9 +10,9 @@ use Doctrine\ORM\Mapping\Column;
 
 /**
  * @Entity
- * @Table(name="image")
+ * @Table(name="category")
  */
-class Image
+class Category
 {
     /**
      * @var int
@@ -26,7 +26,7 @@ class Image
      * @var string
      * @Column(type="string")
      */
-    private $link;
+    private $name;
 
     /**
      * @var bool
@@ -44,14 +44,14 @@ class Image
         $this->id = $id;
     }
 
-    public function getLink(): string
+    public function getName(): string
     {
-        return $this->link;
+        return $this->name;
     }
 
-    public function setLink(string $link): void
+    public function setName(string $name): void
     {
-        $this->link = $link;
+        $this->name = $name;
     }
 
     public function isVisible(): bool
